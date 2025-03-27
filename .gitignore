@@ -1,18 +1,6 @@
 *.txt
 venv/
 .env
-__pycache__/
-*.py[cod]
-.ipynb_checkpoints
-.coverage
-*.py,cover
-.cache/
-*.bundle.*
-lib/
-node_modules/
-*.egg-info/
-.ipynb_checkpoints
-*.tsbuildinfo
 
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
