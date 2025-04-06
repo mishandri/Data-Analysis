@@ -24,4 +24,17 @@
 
 Шаги метода `process_lead`:
 
+```python
+crm_url = "https://itresume.com/crm/api/leads"
+       crm_params = {
+           'lead_id': lead.lead_id,
+           'datetime': lead.datetime,
+           'page': lead.page,
+           'form_title': lead.form_title,
+           'contacts': lead.contacts,
+           'name': lead.name
+       }
+       response = requests.post(crm_url, json=crm_params)
+```
+
 А далее, если `response.status_code` == 200 - можете записать в логи сообщение об успешности передачи данных. Любой другой `status_code` будет означать ошибку, и можете записать сообщение об ошибке. Сообщения: `Данные лида успешно отправлены в CRM` или `Не удалось отправить данные лида в CRM`.
