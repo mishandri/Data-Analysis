@@ -8,7 +8,7 @@ from datetime import datetime   # Для работы с датой и врем�
 import ast # для чтения "кода"
 
 # Переменные
-api_url = "https://b2b.itresume.ru/api/statistics"
+api_url = "https://b2b.itresume.ru/api/"#statistics"
 params={
     "client": "Skillfactory",
     "client_key": "M2MGWS",
@@ -22,9 +22,33 @@ psql_db = "postgres"
 psql_user = "postgres"
 psql_pass = 123
 
-#TODO Создать класс-синглтон для подключения к локальной БД
 class ConnectDB:
-    ...
+    __instance = None  # Явное объявление приватного атрибута класса
+
+    @staticmethod
+    def get_instance():
+        if not ConnectDB.__instance:
+            ConnectDB()
+        return ConnectDB.__instance
+
+    def __init__(self):
+        if ConnectDB.__instance:
+            raise Exception("Этот класс является Singleton")
+        else:
+            self.connection = psycopg2.connect(
+                host=psql_address,
+                port=psql_port,
+                database=psql_db,
+                user=psql_user,
+                password=psql_pass
+            )
+            ConnectDB.__instance = self
+            print(f'Соединение с БД "{psql_db}:{psql_port}" открыто')
+
+    def close_instance(self):
+        if ConnectDB.__instance:
+            self.connection.close()
+            print(f'Соединение с БД "{psql_db}:{psql_port}" закрыто')
 
 class APIClient:
     def __init__(self, url, params):
@@ -37,8 +61,12 @@ class APIClient:
             response = requests.get(self.url, params=self.__params)
             self.status = response.status_code
             self.__json = response.json()
+        except requests.exceptions.HTTPError as err:
+            print(f"HTTP Error: {err}")
+            return self.status
         except requests.exceptions.RequestException as err:
-            raise ValueError(f"API request failed: {err}")
+            print(f"Request Error: {err}")
+            return self.status
         res = []
         for el in self.__json:
             dict_res = {}
@@ -55,18 +83,6 @@ class APIClient:
 #TODO Создать класс для логирования всех действий
 class Logging:
     ...
-        # def status(self):
-    #     status_code = r.status_code
-    #     if status_code == 200:
-    #         print("Запрос выполнен успешно!")
-    #     elif status_code == 404:
-    #         print("Ресурс не найден.")
-    #     elif status_code == 403:
-    #         print("Доступ запрещён!")
-    #     elif status_code == 503:
-    #         print("Сервер не доступен...")
-    #     else:
-    #         print("Произошла ошибка:", status_code)
 
 #TODO Создать класс для отправки сообщений по электронной почте
 class Email:
@@ -79,3 +95,6 @@ class GoogleSheet:
 
 data = APIClient(api_url, params).fetch_data()
 print(data)
+db_connection = ConnectDB.get_instance()
+print(db_connection)
+db_connection.close_instance()
