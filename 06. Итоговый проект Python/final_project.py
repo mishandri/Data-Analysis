@@ -13,7 +13,7 @@ params={
     "client": "Skillfactory",
     "client_key": "M2MGWS",
     "start": "2023-04-01 12:46:47.860798",
-    "end": "2023-04-01 13:49:47.860798"
+    "end": "2023-04-01 12:49:47.860798"
 }
 
 psql_address = "localhost"
@@ -26,15 +26,19 @@ psql_pass = 123
 class ConnectDB:
     ...
 
-class GetData:
+class APIClient:
     def __init__(self, url, params):
         self.url = url
         self.__params = params
-        response = requests.get(self.url, params=self.__params)
-        self.status = response.status_code
-        self.__json = response.json()
 
-    def dict(self):
+    def fetch_data(self):
+        """Загружает данные из API и возвращает их в структурированном виде."""
+        try:
+            response = requests.get(self.url, params=self.__params)
+            self.status = response.status_code
+            self.__json = response.json()
+        except requests.exceptions.RequestException as err:
+            raise ValueError(f"API request failed: {err}")
         res = []
         for el in self.__json:
             dict_res = {}
@@ -72,7 +76,6 @@ class Email:
 class GoogleSheet:
     ...
 
-# Функция обращается к серверу по API и возвращает словарь с данными
-data = GetData(api_url, params).dict()
 
+data = APIClient(api_url, params).fetch_data()
 print(data)
