@@ -1,11 +1,21 @@
 # Импортируем необходимые библиотеки
 import requests # Для запроса данных их API
 import logging  # Для логирования
+from pathlib import Path
 import psycopg2 # Для работы с PostgreSQL
 import gspread  # Для работы с GoogleSheets
 from oauth2client.service_account import ServiceAccountCredentials #Для авторизации на гугле
 from datetime import datetime   # Для работы с датой и временем
-import ast # для чтения "кода"
+import ast # для чтения "кода", чтобы быстро строку превратить в словарь
+today = datetime.now().strftime("%Y-%m-%d")
+
+#Настройка логера:
+logging.basicConfig(
+    format='%(asctime)s %(levelname)s: %(message)s"',
+    level=logging.INFO,
+    encoding='utf-8',
+    filename=f"{Path(__file__).parent}/{today}.log",
+    filemode="a")
 
 # Переменные
 api_url = "https://b2b.itresume.ru/api/"#statistics"
@@ -33,8 +43,10 @@ class ConnectDB:
 
     def __init__(self):
         if ConnectDB.__instance:
+            logging.warning(f"Попытка создать второй экземпляр класса {self.__class__.__name__}")
             raise Exception("Этот класс является Singleton")
         else:
+            print(f'{self.__class__}')
             self.connection = psycopg2.connect(
                 host=psql_address,
                 port=psql_port,
@@ -43,12 +55,12 @@ class ConnectDB:
                 password=psql_pass
             )
             ConnectDB.__instance = self
-            print(f'Соединение с БД "{psql_db}:{psql_port}" открыто')
+            logging.info(f'Соединение с БД "{psql_db}:{psql_port}" открыто')
 
     def close_instance(self):
         if ConnectDB.__instance:
             self.connection.close()
-            print(f'Соединение с БД "{psql_db}:{psql_port}" закрыто')
+            logging.info(f'Соединение с БД "{psql_db}:{psql_port}" закрыто')
 
 class APIClient:
     def __init__(self, url, params):
@@ -61,11 +73,11 @@ class APIClient:
             response = requests.get(self.url, params=self.__params)
             self.status = response.status_code
             self.__json = response.json()
-        except requests.exceptions.HTTPError as err:
-            print(f"HTTP Error: {err}")
+        except requests.exceptions.HTTPError:
+            logging.warning(f"HTTP Error: {self.status}")
             return self.status
-        except requests.exceptions.RequestException as err:
-            print(f"Request Error: {err}")
+        except requests.exceptions.RequestException:
+            logging.warning(f"Request Error: {self.status}")
             return self.status
         res = []
         for el in self.__json:
