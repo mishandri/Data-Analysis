@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     user_id VARCHAR NOT NULL,
     oauth_consumer_key VARCHAR NOT NULL,
     lis_result_sourcedid VARCHAR,
