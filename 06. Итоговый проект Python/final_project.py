@@ -182,6 +182,19 @@ finally:
         # Отсоединяемся от БД
         db_connection.close_instance()
 
+def delete_old_log(days=3, folder='.'):
+    cutoff = datetime.now() - timedelta(days=days)
+    for filename in os.listdir(path):
+        file_path = os.path.join(folder, filename)
+        file_date = datetime.fromtimestamp(os.path.getmtime(file_path))
+        condition = filename.lower().endswith('.log') and file_date <= cutoff
+        if condition:
+            os.remove(file_path)
+            logging.info(f'Удалён лог-файл {filename}')
+
+file = os.path.abspath(__file__) # Получаем путь к файлу .py
+path = os.path.dirname(file)    # Берём только директорию
+delete_old_log(days=3, folder=path) # Удаляем логи старше 3х дней от текущего момента
 
 # yesterday = (datetime.now() - timedelta(days=732)).strftime("%Y-%m-%d")
 logging.info("Работа программы успешно завершена")
