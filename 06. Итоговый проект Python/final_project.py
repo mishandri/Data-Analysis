@@ -5,7 +5,7 @@ from logging.handlers import TimedRotatingFileHandler
 from pathlib import Path
 import psycopg2  # Для работы с PostgreSQL
 from webdav3.client import Client # Для работы с WebDAV
-from oauth2client.service_account import ServiceAccountCredentials
+from openpyxl import load_workbook, Workbook # Для работы с xlsx-файлами
 from datetime import datetime, timedelta   # Для работы с датой и временем
 import ast  # для чтения "кода", чтобы быстро строку превратить в словарь
 import os
@@ -152,14 +152,10 @@ class YandexDisk:
         
     def report(self, filename):
         self.filename = filename
-        file = os.path.abspath(__file__) # Получаем путь к файлу .py
-        path = os.path.dirname(file)    # Берём только директорию
-        # Выгружаем файл
-        fullpath = f'{path}/{filename}'
         client = Client(self.options)
         if not client.check("python"):
             client.mkdir("python")
-        client.upload(f'python/{self.filename}', fullpath)
+        client.upload(f'python/Отчёт.xlsx', filename)
 
 # Получаем данные из API
 data = APIClient(api_url, params).fetch_data()
@@ -218,11 +214,56 @@ delete_old_log(days=3, folder=path) # Удаляем логи старше 3х �
 
 logging.info("Формируется отчёт в формате xlsx")
 
+def cnt_data(data):
+    cnt_users = set()
+    cnt_attempts = 0
+    cnt_success_attempts = 0
+    for row in data:
+        cnt_users.add(row['user_id'])
+        if (row['is_correct'] == 0 and row['attempt_type'] == 'submit') or row['attempt_type'] == 'run':
+            cnt_attempts += 1
+        if row['is_correct'] == 1 and row['attempt_type'] == 'submit':
+            cnt_success_attempts += 1
+
+    return {'date': yesterday, 'count_unique_users': len(cnt_users), 'count_attempts': cnt_attempts, 'count_success_attempts': cnt_success_attempts}
+
+report_data = cnt_data(data)
+
+file = os.path.abspath(__file__) # Получаем путь к файлу .py
+path = os.path.dirname(file) 
+report_name = f"{path}/Отчёт.xlsx"
+if not os.path.exists(report_name):
+    logging.warning(f'Отсутствует файл отчёта {report_name}. Создаём его...')
+    # Создаем новую книгу Excel
+    wb = Workbook()
+    ws = wb.active
+    # Записываем заголовки
+    headers = [
+        "Дата",
+        "Количество уникальных пользователей",
+        "Количество попыток",
+        "Количество успешных попыток"
+    ]
+    ws.append(headers)
+    # Сохраняем файл
+    wb.save(report_name)
+    logging.info('Файл отчёта создан')
+
+# Добавляем данные в отчёт
+wb = load_workbook(report_name)
+ws = wb.active
 try:
-    report = YandexDisk().report('2025-04-12.log')
+    ws.append(list(report_data.values()))
+    wb.save(report_name)
+    logging.info('Данные успешно добавлены')
+except Exception as e:
+    logging.error(f'Ошибка добавления данных: {e}')
+
+# Загружаем файл на Я.Диск
+try:
+    report = YandexDisk().report(report_name)
     logging.info("Отчёт в формате xlsx загружен на Я.Диск")
 except Exception as e:
     logging.error(f"Ошибка загрузки на Я.Диск: {e}")
 
-# yesterday = (datetime.now() - timedelta(days=732)).strftime("%Y-%m-%d")
 logging.info("Работа программы успешно завершена")
