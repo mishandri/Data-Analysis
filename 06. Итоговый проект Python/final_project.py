@@ -12,9 +12,14 @@ import ast  # для чтения "кода", чтобы быстро строк
 import os
 
 # Считаем, что код запускается где-то ночью и записывает данные в БД за вчерашний день timedelta(days=1)
+# Так как время на сервере в нулевом часовом поясе, нужно это учитывать. Поэтому можно сделать +3 часа к start и end
+# Можно задать любое значение hours
+hours = 3
 yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
-start = f'{yesterday} 00:00:00.000000'
-end = f'{yesterday} 23:59:59.999999'
+start_datetime = datetime.strptime(f'{yesterday} 00:00:00.000000', "%Y-%m-%d %H:%M:%S.%f") + timedelta(hours=hours)
+end_datetime = datetime.strptime(f'{yesterday} 23:59:59.999999', "%Y-%m-%d %H:%M:%S.%f") + timedelta(hours=hours)
+start = (start_datetime).strftime("%Y-%m-%d %H:%M:%S.%f")
+end = (end_datetime).strftime("%Y-%m-%d %H:%M:%S.%f")
 
 # Настройка логера:
 logging.basicConfig(
@@ -147,6 +152,7 @@ class GoogleSheet:
 data = APIClient(api_url, params).fetch_data()
 
 db_connection = ConnectDB.get_instance()  # Соединяемся с БД
+# Таблица создана заранее. Файл "create_table_users.sql"
 try:
     cursor = db_connection.connection.cursor()  # Устанавливаем курсор
     query = """
