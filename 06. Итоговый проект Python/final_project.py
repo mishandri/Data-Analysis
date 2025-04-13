@@ -4,8 +4,7 @@ import logging  # Для логирования
 from logging.handlers import TimedRotatingFileHandler
 from pathlib import Path
 import psycopg2  # Для работы с PostgreSQL
-import gspread  # Для работы с GoogleSheets
-# Для авторизации на гугле
+from webdav3.client import Client # Для работы с WebDAV
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime, timedelta   # Для работы с датой и временем
 import ast  # для чтения "кода", чтобы быстро строку превратить в словарь
@@ -136,17 +135,31 @@ class APIClient:
             return []
 
 # TODO Создать класс для отправки сообщений по электронной почте
-
-
 class Email:
     ...
 
-# TODO Создать класс для записи данных в Google Sheets
+class YandexDisk:
+    def __init__(self):
+        #Сохраню пароль в отдельном файле, который не выгружается на гит
+        with open('password_yandex', 'r') as f:
+            self.__password_xlsx = f.read()
 
-
-class GoogleSheet:
-    ...
-
+        self.options = {
+            "webdav_hostname": "https://webdav.yandex.ru",
+            "webdav_login": "kolcharma@yandex.ru",
+            "webdav_password": self.__password_xlsx,
+        }
+        
+    def report(self, filename):
+        self.filename = filename
+        file = os.path.abspath(__file__) # Получаем путь к файлу .py
+        path = os.path.dirname(file)    # Берём только директорию
+        # Выгружаем файл
+        fullpath = f'{path}/{filename}'
+        client = Client(self.options)
+        if not client.check("python"):
+            client.mkdir("python")
+        client.upload(f'python/{self.filename}', fullpath)
 
 # Получаем данные из API
 data = APIClient(api_url, params).fetch_data()
@@ -188,6 +201,7 @@ finally:
         # Отсоединяемся от БД
         db_connection.close_instance()
 
+# Удаление лог-файлов старше 3х дней
 def delete_old_log(days=3, folder='.'):
     cutoff = datetime.now() - timedelta(days=days)
     for filename in os.listdir(path):
@@ -201,6 +215,14 @@ def delete_old_log(days=3, folder='.'):
 file = os.path.abspath(__file__) # Получаем путь к файлу .py
 path = os.path.dirname(file)    # Берём только директорию
 delete_old_log(days=3, folder=path) # Удаляем логи старше 3х дней от текущего момента
+
+logging.info("Формируется отчёт в формате xlsx")
+
+try:
+    report = YandexDisk().report('2025-04-12.log')
+    logging.info("Отчёт в формате xlsx загружен на Я.Диск")
+except Exception as e:
+    logging.error(f"Ошибка загрузки на Я.Диск: {e}")
 
 # yesterday = (datetime.now() - timedelta(days=732)).strftime("%Y-%m-%d")
 logging.info("Работа программы успешно завершена")
