@@ -9,6 +9,8 @@ from openpyxl import load_workbook, Workbook # Для работы с xlsx-фа�
 from datetime import datetime, timedelta   # Для работы с датой и временем
 import ast  # для чтения "кода", чтобы быстро строку превратить в словарь
 import os
+import smtplib  # Для отправки по SMTP
+from email.message import EmailMessage  # Для создания e-mail
 
 # Считаем, что код запускается где-то ночью и записывает данные в БД за вчерашний день timedelta(days=1)
 # Так как время на сервере в нулевом часовом поясе, нужно это учитывать. Поэтому можно сделать +3 часа к start и end
@@ -133,10 +135,6 @@ class APIClient:
         except KeyError:
             logging.error('Ошибка ключа при формировании словаря')
             return []
-
-# TODO Создать класс для отправки сообщений по электронной почте
-class Email:
-    ...
 
 class YandexDisk:
     def __init__(self):
@@ -265,5 +263,45 @@ try:
     logging.info("Отчёт в формате xlsx загружен на Я.Диск")
 except Exception as e:
     logging.error(f"Ошибка загрузки на Я.Диск: {e}")
+
+def send_yandex_email(sender_email, sender_password, receiver_email: str, subject: str, body):
+    try:
+        # Настройки SMTP Яндекс
+        smtp_server = "smtp.yandex.ru"
+        smtp_port = 465  # SSL
+        
+        # Создаем сообщение
+        msg = EmailMessage()
+        msg['From'] = sender_email
+        msg['To'] = receiver_email
+        msg['Subject'] = subject
+        msg.set_content(body)
+        
+        # Отправляем письмо
+        with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+        
+        logging.info("E-mail успешно отправлен!")
+    
+    except Exception as e:
+        logging.error(f"Ошибка отправки E-mail: {e}")
+
+# Настройка параметров для электронной почты
+yandex_email = "kolcharma@yandex.ru"
+with open('password_mail', 'r') as f:
+    app_password = f.read()
+recipient = "kolcharma@gmail.com"
+
+send_yandex_email(
+    sender_email=yandex_email,
+    sender_password=app_password,
+    receiver_email=recipient,
+    subject="Важное уведомление",
+    body="""Здравствуйте!
+Работа алгоритма закончена
+С уважением,
+Автоматизированная система"""
+)
 
 logging.info("Работа программы успешно завершена")
