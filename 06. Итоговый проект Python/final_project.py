@@ -42,7 +42,7 @@ psql_address = "localhost"
 psql_port = 5432
 psql_db = "postgres"
 psql_user = "postgres"
-psql_pass = 123
+psql_pass = 123 # Можно вынести пароль в отдельную переменную, которую брать из файла (как для Я.Диска и E-mail сделано)
 
 
 class ConnectDB:
