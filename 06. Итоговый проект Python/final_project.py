@@ -218,6 +218,7 @@ def cnt_data(data):
     cnt_success_attempts = 0
     for row in data:
         cnt_users.add(row['user_id'])
+        # Количество попыток считаем, без учёта верных решений
         if (row['is_correct'] == 0 and row['attempt_type'] == 'submit') or row['attempt_type'] == 'run':
             cnt_attempts += 1
         if row['is_correct'] == 1 and row['attempt_type'] == 'submit':
