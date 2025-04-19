@@ -4,6 +4,8 @@ venv/
 .ipynb_checkpoints
 *.log
 password*
+#Массив чеков для тестового
+Массив чеков*
 
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
