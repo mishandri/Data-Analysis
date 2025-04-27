@@ -29,11 +29,14 @@
 ### Проведён XYZ-анализ для торговых сетей по `CLEAN_SKU`
 
 #### Результаты формируются в *.csv файлы с названиями `ABC-XYZ {Имя торговой сети}`
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/ABC-XYZ.png" title="ABC-XYZ-анализ" />
 
 ### Проведено сравнение средних цен по категории товаров `CATEGORY_NT` во всех трёх сетях.
 
 - В одной таблице взяты все значения (с пропусками) для наглядности отсутствующих категорий в торговых сетях
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/mean_category1.png" title="С пропусками" />
 - В другой таблице взяты только значения, встречающиеся во всех трёх торговых сетях
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/mean_category2.png" title="Без пропусков" />
 
 ### Рассчитана средняя сумма чека:
 
@@ -52,3 +55,4 @@
 ### Проведён RFM-анализ по клиентам, у которых есть `customer_id`, то есть применена карта магазина
 
 #### Результаты формируются в *.csv файлы с названиями `RFM {Имя торговой сети}`
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/RFM.png" title="RFM-анализ" />
