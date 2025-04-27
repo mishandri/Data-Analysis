@@ -1,6 +1,6 @@
 # Анализ чекового массива с целью выявления ключевых показателей
 
-## Магазины
+## Выснены какие торговые сети присутствуют в массиве чеков
 
 В массиве чеков присутствуют 3 торговых сетей:
 
@@ -12,8 +12,12 @@
 
 ## Построена интерактивная карта для отображения расположения магазинов
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/map.gif" title="map" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/map.gif" title="Интерактивная карта магазинов" />
 
-## Оценка общих показателей в сетях
+## Выполнена общая оценка показателей в торговых сетях
+
+### Построена интерактивная корреляционная матрица
+
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/corr.png" title="Корреляционная матрица" />
 
 ### Средняя сумма чека
