@@ -49,4 +49,4 @@
 
 <img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/mean_chek_weekday.png" title="Средний чек по дням недели" />
 
-### Проведён RFM-анализ по клиентам, у которых есть `customer_id`, то есть применена карта магазина:
+### Проведён RFM-анализ по клиентам, у которых есть `customer_id`, то есть применена карта магазина
