@@ -12,7 +12,7 @@
 
 ## Построена интерактивная карта для отображения расположения магазинов
 
-<img src="[https://github.com/devicons/devicon/blob/master/icons/python/python-original.svg](https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/map.gif)" title="map" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/map.gif" title="map" />
 
 ## Оценка общих показателей в сетях
 
