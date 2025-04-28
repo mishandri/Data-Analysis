@@ -35,9 +35,9 @@
 ### Проведено сравнение средних цен по категории товаров `CATEGORY_NT` во всех трёх сетях.
 
 - В одной таблице взяты все значения (с пропусками) для наглядности отсутствующих категорий в торговых сетях
-  `<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/mean_category1.png" title="С пропусками" />`
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/mean_category1.png" title="С пропусками" />
 - В другой таблице взяты только значения, встречающиеся во всех трёх торговых сетях
-  `<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/mean_category2.png" title="Без пропусков" />`
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/mean_category2.png" title="Без пропусков" />
 
 ### Рассчитана средняя сумма чека:
 
