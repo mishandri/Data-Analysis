@@ -18,23 +18,23 @@
 
 <img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/map.gif" title="Интерактивная карта магазинов" />
 
-## Проверены данные на выбросы
+## Проверены данные на выбросы (графики интерактивные)
 
 ### До обработки:
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_1.png" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_1.png" title="Окей до обработки" />
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_2.png" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_2.png" title="Гиперглобус до обработки" />
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_3.png" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_3.png" title="Метро до обработки" />
 
 ### После обработки:
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_1.png" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_1.png" title="Окей после обработки" />
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_2.png" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_2.png" title="Гиперглобус после обработки" />
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_3.png" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_3.png" title="Метро после обработки" />
 
 
 ## Выполнена общая оценка показателей в торговых сетях
