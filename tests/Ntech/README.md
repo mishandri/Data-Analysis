@@ -22,19 +22,19 @@
 
 ### До обработки:
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_1.gif" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_1.png" title="Интерактивная карта магазинов" />
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_2.gif" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_2.png" title="Интерактивная карта магазинов" />
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_3.gif" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_3.png" title="Интерактивная карта магазинов" />
 
 ### После обработки:
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_1.gif" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_1.png" title="Интерактивная карта магазинов" />
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_2.gif" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_2.png" title="Интерактивная карта магазинов" />
 
-<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_3.gif" title="Интерактивная карта магазинов" />
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_3.png" title="Интерактивная карта магазинов" />
 
 
 ## Выполнена общая оценка показателей в торговых сетях
