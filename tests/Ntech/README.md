@@ -18,6 +18,25 @@
 
 <img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/map.gif" title="Интерактивная карта магазинов" />
 
+## Проверены данные на выбросы
+
+### До обработки:
+
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_1.gif" title="Интерактивная карта магазинов" />
+
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_2.gif" title="Интерактивная карта магазинов" />
+
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_before_3.gif" title="Интерактивная карта магазинов" />
+
+### После обработки:
+
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_1.gif" title="Интерактивная карта магазинов" />
+
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_2.gif" title="Интерактивная карта магазинов" />
+
+<img src="https://github.com/mishandri/Data-Analysis/blob/main/tests/Ntech/pics/box_after_3.gif" title="Интерактивная карта магазинов" />
+
+
 ## Выполнена общая оценка показателей в торговых сетях
 
 ### Построена интерактивная корреляционная матрица
