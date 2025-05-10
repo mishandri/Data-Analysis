@@ -11,6 +11,8 @@ tests/Ntech/ABC-XYZ*.csv
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
 
+config.ini
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
