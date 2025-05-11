@@ -8,7 +8,7 @@ today = datetime.today()
 fake = Faker('ru_RU')
 
 checks_title = ['doc_id',   # численно-буквенный идентификатор чека
-                'datetime', # дата и время покупки
+                'doc_dt', # дата и время покупки
                 'item',     # название товара
                 'category', # категория товара (бытовая химия, текстиль, посуда и т.д.)
                 'amount',   # кол-во товара в чеке
@@ -69,14 +69,14 @@ def gen_time():
 def gen_check():
     check = pd.DataFrame(columns=checks_title)
     doc_id = fake.bothify(text='??####??#####?#?#?#?###??').upper()
-    datetime = f'{today.strftime('%Y-%m-%d')} {gen_time()}'
+    doc_dt = f'{today.strftime('%Y-%m-%d')} {gen_time()}'
     for i in range(rnd.randint(1, 10)): # в чеке будет от 1 до 10 позиций
         category = rnd.choice(categories)
         item = gen_product(category)
         amount = rnd.randint(1,5)
         price = round(rnd.random()*1000, 2)
         discount = round(price * rnd.random()/10, 0)
-        check.loc[len(check)] = [doc_id, datetime, item, category, amount, price, discount]
+        check.loc[len(check)] = [doc_id, doc_dt, item, category, amount, price, discount]
     return check
 
 print(gen_check())
