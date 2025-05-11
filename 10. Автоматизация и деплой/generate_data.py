@@ -2,7 +2,10 @@ from faker import Faker
 import random as rnd
 import pandas as pd
 import numpy as np
+import os
 from datetime import datetime, timedelta
+
+dirname = os.path.dirname(__file__)
 
 today = datetime.today()
 fake = Faker('ru_RU')
@@ -79,5 +82,14 @@ def gen_check():
         check.loc[len(check)] = [doc_id, doc_dt, item, category, amount, price, discount]
     return check
 
-print(gen_check())
-
+n = 12 # Количество магазинов
+k = 4 # Количество касс в каждом магазине
+for shop in range(n):
+    for cash in range(k):
+        df = pd.DataFrame()
+        for customer in range(50, 101): # от 50 до 100 покупателей в магазине за день
+            df = pd.concat([df, gen_check()], ignore_index=True)
+        df['shop_num'] = shop + 1
+        df['cash_num'] = cash + 1
+        df = df.sort_values('doc_dt') # Отсортируем по времени
+        df.to_csv(os.path.join(dirname, f"data/{shop + 1}-{cash + 1}.csv"), index=False)
