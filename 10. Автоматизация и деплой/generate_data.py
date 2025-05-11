@@ -3,12 +3,23 @@ import random as rnd
 import pandas as pd
 import numpy as np
 import os
+import logging  # Для логирования
 from datetime import datetime, timedelta
 
 dirname = os.path.dirname(__file__)
-
 today = datetime.today()
 fake = Faker('ru_RU')
+
+# Настройка логера:
+os.makedirs(os.path.join(dirname, "logs"), exist_ok=True) # Создаём папку logs, если её не существует
+logging.basicConfig(
+    format='%(asctime)s %(levelname)s: %(message)s',
+    level=logging.INFO,
+    encoding='utf-8',
+    filename=f"{dirname}/logs/{today.strftime("%Y-%m-%d")}.log",
+    filemode="a"
+)
+logging.info(f"Запуск скрипта {os.path.basename(__file__)} для генерации данных чеков...")
 
 # Заголовки для чека
 checks_title = ['doc_id',   # численно-буквенный идентификатор чека
@@ -94,4 +105,9 @@ for shop in range(n):
         df['shop_num'] = shop + 1
         df['cash_num'] = cash + 1
         df = df.sort_values('doc_dt') # Отсортируем по времени
-        df.to_csv(os.path.join(dirname, f"data/{shop + 1}-{cash + 1}.csv"), index=False)
+        filename = f"data/{shop + 1}-{cash + 1}.csv"
+        pathfile = os.path.join(dirname, filename)
+        df.to_csv(pathfile, index=False)
+        logging.info(f'Файл "{filename}" создан.')
+
+logging.info(f"Скрипт {os.path.basename(__file__)} успешно завершён. Файлы с чеками успешно созданы.")
