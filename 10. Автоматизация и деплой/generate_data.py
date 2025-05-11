@@ -2,10 +2,13 @@ from faker import Faker
 import random as rnd
 import pandas as pd
 import numpy as np
+from datetime import datetime, timedelta
 
+today = datetime.today()
 fake = Faker('ru_RU')
 
 checks_title = ['doc_id',   # численно-буквенный идентификатор чека
+                'datetime', # дата и время покупки
                 'item',     # название товара
                 'category', # категория товара (бытовая химия, текстиль, посуда и т.д.)
                 'amount',   # кол-во товара в чеке
@@ -53,17 +56,27 @@ def gen_product(category):
         return f'{rnd.choice(["Варен.", "Копчен.", "Сырокопч."])} {rnd.choice(["колбаса", "сосиски"])} {rnd.choice(["250г.", "300г.", "400г."])}'
     if category == "Чай, кофе, какао":
         return f'{rnd.choice(["Чай", "Кофе", "Какао"])} ({fake.country()}) {rnd.choice(["120г.", "150г.", "200г.", "400г."])}'
+
+# Функция генерации времени чека
+def gen_time():   
+    while True:
+        t = fake.time(pattern='%H:%M:%S')
+        hour = int(t.split(':')[0])
+        if 9 <= hour < 21:  # Рабочее время магазина
+            return t
+
 # Функция генерации одного чека
 def gen_check():
     check = pd.DataFrame(columns=checks_title)
     doc_id = fake.bothify(text='??####??#####?#?#?#?###??').upper()
+    datetime = f'{today.strftime('%Y-%m-%d')} {gen_time()}'
     for i in range(rnd.randint(1, 10)): # в чеке будет от 1 до 10 позиций
         category = rnd.choice(categories)
         item = gen_product(category)
         amount = rnd.randint(1,5)
         price = round(rnd.random()*1000, 2)
         discount = round(price * rnd.random()/10, 0)
-        check.loc[len(check)] = [doc_id, item, category, amount, price, discount]
+        check.loc[len(check)] = [doc_id, datetime, item, category, amount, price, discount]
     return check
 
 print(gen_check())
