@@ -53,3 +53,48 @@ try:
 except Exception as err:
     logging.error(err)
 
+# Отчёт на почту
+
+def send_yandex_email(sender_email, sender_password, receiver_email: str, subject: str, body, attachment):
+    try:
+        # Настройки SMTP Яндекс
+        smtp_server = config["email"]["SMTPSERVER"]
+        smtp_port = 465
+        
+        # Создаем сообщение
+        msg = EmailMessage()
+        msg['From'] = sender_email
+        msg['To'] = receiver_email
+        msg['Subject'] = subject
+        msg.set_content(body)
+        
+        # Прикрепляем файл с логом
+        with open(attachment, 'rb') as file:
+            msg.add_attachment(file.read(), maintype='text', subtype='plain', filename=f'{today.strftime("%Y-%m-%d")}.log')
+        
+        # Отправляем письмо
+        with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+        
+        logging.info("E-mail успешно отправлен!")
+    
+    except Exception as e:
+        logging.error(f"Ошибка отправки E-mail: {e}")
+
+# Настройка параметров для электронной почты
+yandex_email = config["email"]["EMAIL"]
+recipient = config["email"]["TO"]
+app_password = config["email"]["PASSWORD"]
+
+send_yandex_email(
+    sender_email=yandex_email,
+    sender_password=app_password,
+    receiver_email=recipient,
+    subject="Важное уведомление",
+    body="""Здравствуйте!
+Работа алгоритма закончена
+С уважением,
+Автоматизированная система""",
+    attachment=f'{dirname}/logs/{today.strftime("%Y-%m-%d")}.log'
+)
