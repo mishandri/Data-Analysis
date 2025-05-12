@@ -51,11 +51,11 @@ try:
             query = f"INSERT INTO ticket VALUES ('{row['doc_id']}', CAST('{row['doc_dt']}' AS TIMESTAMP), '{row['item']}', '{row['category']}', '{row['amount']}', '{row['price']}', '{row['discount']}', '{row['shop_num']}', '{row['cash_num']}')"
             database.post(query)  
         # Удаляем загруженный csv-файл
-        try:
-            os.remove(os.path.join(dirname, 'data', f))  
-            logging.info(f"Файл {f} удалён")
-        except Exception as e:
-            logging.error(e)
+        # try:
+        #     os.remove(os.path.join(dirname, 'data', f))  
+        #     logging.info(f"Файл {f} удалён")
+        # except Exception as e:
+        #     logging.error(e)
     logging.info("Работа программы завершена")
 except Exception as err:
     logging.error(err)
