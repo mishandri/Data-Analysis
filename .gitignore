@@ -10,7 +10,7 @@ password*
 tests/Ntech/ABC-XYZ*.csv
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
-
+tests/Kaspersky
 config.ini
 
 ### Python ###
