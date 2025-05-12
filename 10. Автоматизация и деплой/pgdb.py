@@ -21,4 +21,4 @@ class PGDatabase:
         try:
             self.cursor.execute(query, args)
         except Exception as err:
-            print(repr(err))
+            ...
