@@ -56,6 +56,7 @@ try:
             logging.info(f"Файл {f} удалён")
         except Exception as e:
             logging.error(e)
+    logging.info("Работа программы завершена")
 except Exception as err:
     logging.error(err)
 
@@ -87,6 +88,7 @@ def send_yandex_email(sender_email, sender_password, receiver_email: str, subjec
     
     except Exception as e:
         logging.error(f"Ошибка отправки E-mail: {e}")
+
 
 # Настройка параметров для электронной почты
 yandex_email = config["email"]["EMAIL"]
