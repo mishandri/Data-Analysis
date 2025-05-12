@@ -49,12 +49,18 @@ try:
         logging.info(f"Обработка файла {f}")
         for i, row in df.iterrows():
             query = f"INSERT INTO ticket VALUES ('{row['doc_id']}', CAST('{row['doc_dt']}' AS TIMESTAMP), '{row['item']}', '{row['category']}', '{row['amount']}', '{row['price']}', '{row['discount']}', '{row['shop_num']}', '{row['cash_num']}')"
-            database.post(query)    
+            database.post(query)  
+        # Удаляем загруженный csv-файл
+        try:
+            os.remove(os.path.join(dirname, 'data', f))  
+            logging.info(f"Файл {f} удалён")
+        except Exception as e:
+            logging.error(e)
 except Exception as err:
     logging.error(err)
 
-# Отчёт на почту
 
+# Отчёт на почту
 def send_yandex_email(sender_email, sender_password, receiver_email: str, subject: str, body, attachment):
     try:
         # Настройки SMTP Яндекс
