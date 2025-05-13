@@ -42,20 +42,24 @@ except Exception as err:
 
 # Список всех файлов csv в директории
 csv_list = [f for f in os.listdir(os.path.join(dirname, 'data')) if f.endswith(".csv")]
+columns = set(['doc_id', 'doc_dt', 'item', 'category', 'amount', 'price', 'discount', 'shop_num', 'cash_num'])
 
 try:
     for f in csv_list:
         df = pd.read_csv(os.path.join(dirname, 'data', f))
         logging.info(f"Обработка файла {f}")
-        for i, row in df.iterrows():
-            query = f"INSERT INTO ticket VALUES ('{row['doc_id']}', CAST('{row['doc_dt']}' AS TIMESTAMP), '{row['item']}', '{row['category']}', '{row['amount']}', '{row['price']}', '{row['discount']}', '{row['shop_num']}', '{row['cash_num']}')"
-            database.post(query)  
-        # Удаляем загруженный csv-файл
-        # try:
-        #     os.remove(os.path.join(dirname, 'data', f))  
-        #     logging.info(f"Файл {f} удалён")
-        # except Exception as e:
-        #     logging.error(e)
+        if set(df.columns) == columns:  # Проверка колонок на соответствие
+            for i, row in df.iterrows():
+                query = f"INSERT INTO ticket VALUES ('{row['doc_id']}', CAST('{row['doc_dt']}' AS TIMESTAMP), '{row['item']}', '{row['category']}', '{row['amount']}', '{row['price']}', '{row['discount']}', '{row['shop_num']}', '{row['cash_num']}')"
+                database.post(query)  
+            # Удаляем загруженный csv-файл
+            # try:
+            #     os.remove(os.path.join(dirname, 'data', f))  
+            #     logging.info(f"Файл {f} удалён")
+            # except Exception as e:
+            #     logging.error(e)
+        else:
+            logging.warn(f"Названия колонок не соответствуют. Файл {f} был пропущен")
     logging.info("Работа программы завершена")
 except Exception as err:
     logging.error(err)
