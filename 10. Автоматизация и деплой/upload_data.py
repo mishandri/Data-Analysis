@@ -58,7 +58,7 @@ try:
             #     logging.info(f"Файл {f} удалён")
             # except Exception as e:
             #     logging.error(e)
-        logging.info(f"Файл {f} обработан")
+            logging.info(f"Файл {f} обработан")
         else:
             logging.warn(f"Названия колонок не соответствуют. Файл {f} был пропущен")
     logging.info("Работа программы завершена")
