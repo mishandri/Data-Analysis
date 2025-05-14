@@ -67,7 +67,7 @@ except Exception as err:
 
 
 # Отчёт на почту
-def send_yandex_email(sender_email, sender_password, receiver_email: str, subject: str, body, attachment):
+def send_email(sender_email, sender_password, receiver_email: str, subject: str, body, attachment):
     try:
         # Настройки SMTP Яндекс
         smtp_server = config["email"]["SMTPSERVER"]
@@ -96,12 +96,12 @@ def send_yandex_email(sender_email, sender_password, receiver_email: str, subjec
 
 
 # Настройка параметров для электронной почты
-yandex_email = config["email"]["EMAIL"]
+email = config["email"]["EMAIL"]
 recipient = config["email"]["TO"]
 app_password = config["email"]["PASSWORD"]
 
-send_yandex_email(
-    sender_email=yandex_email,
+send_email(
+    sender_email=email,
     sender_password=app_password,
     receiver_email=recipient,
     subject="Важное уведомление",
