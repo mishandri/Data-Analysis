@@ -1,14 +1,16 @@
 import psycopg2
 
 class PGDatabase:
-    def __init__(self, host, database, user, password):
+    def __init__(self, host, port, database, user, password):
         self.host = host
+        self.port = port
         self.database = database
         self.user = user
         self.password = password
 
         self.connection = psycopg2.connect(
             host=host,
+            port=port,
             database=database,
             user=user,
             password=password,

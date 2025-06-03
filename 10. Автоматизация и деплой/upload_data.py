@@ -33,6 +33,7 @@ logging.info(f"Запуск скрипта {os.path.basename(__file__)} для �
 try:
     database = PGDatabase(
         host=PSQL["HOST"],
+        port=PSQL["PORT"],
         database=PSQL["DATABASE"],
         user=PSQL["USER"],
         password=PSQL["PASSWORD"]
