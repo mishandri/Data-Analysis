@@ -20,6 +20,7 @@ SELECT
     dateDiff('day', start_date, date_id) / dateDiff('day', start_date, end_date) AS trend, 
     amount,
     log(amount) AS target,
+    -- Так как в данных есть сезонность, то добавим параметры для будущей модели
     if(toDayOfWeek(date_id)=1, 1, 0) AS DoW1,
     if(toDayOfWeek(date_id)=2, 1, 0) AS DoW2,
     if(toDayOfWeek(date_id)=3, 1, 0) AS DoW3,
