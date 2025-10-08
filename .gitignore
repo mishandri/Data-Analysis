@@ -3,6 +3,7 @@ venv/
 .venv
 .ipynb_checkpoints
 *.log
+Пайплайн обработки чеков/data/*.csv
 password*
 #Массив чеков для тестового
 Массив чеков*
