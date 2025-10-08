@@ -97,18 +97,18 @@ def send_email(sender_email, sender_password, receiver_email: str, subject: str,
 
 
 # Настройка параметров для электронной почты
-email = config["email"]["EMAIL"]
-recipient = config["email"]["TO"]
-app_password = config["email"]["PASSWORD"]
+# email = config["email"]["EMAIL"]
+# recipient = config["email"]["TO"]
+# app_password = config["email"]["PASSWORD"]
 
-send_email(
-    sender_email=email,
-    sender_password=app_password,
-    receiver_email=recipient,
-    subject="Важное уведомление",
-    body="""Здравствуйте!
-Работа алгоритма закончена
-С уважением,
-Автоматизированная система""",
-    attachment=f'{dirname}/logs/{today.strftime("%Y-%m-%d")}.log'
-)
+# send_email(
+#     sender_email=email,
+#     sender_password=app_password,
+#     receiver_email=recipient,
+#     subject="Важное уведомление",
+#     body="""Здравствуйте!
+# Работа алгоритма закончена
+# С уважением,
+# Автоматизированная система""",
+#     attachment=f'{dirname}/logs/{today.strftime("%Y-%m-%d")}.log'
+# )
