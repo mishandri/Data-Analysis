@@ -88,7 +88,8 @@ def gen_check():
     for i in range(rnd.randint(1, 10)): # в чеке будет от 1 до 10 позиций
         category = rnd.choice(categories)
         item = gen_product(category)
-        amount = rnd.randint(1,5)
+        amount_weights = [1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 5]  # 1 и 2 встречаются чаще
+        amount = rnd.choice(amount_weights)
         price = round(rnd.random()*300, 2)
         discount = round(price * rnd.random()/10, 0)
         check.loc[len(check)] = [doc_id, doc_dt, item, category, amount, price, discount]
