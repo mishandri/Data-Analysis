@@ -71,6 +71,58 @@ def gen_product(category):
         return f'{rnd.choice(["Варен.", "Копчен.", "Сырокопч."])} {rnd.choice(["колбаса", "сосиски"])} {rnd.choice(["250г.", "300г.", "400г."])}'
     if category == "Чай, кофе, какао":
         return f'{rnd.choice(["Чай", "Кофе", "Какао"])} ({fake.country()}) {rnd.choice(["120г.", "150г.", "200г.", "400г."])}'
+    
+# Функция генерации цены по категории
+def gen_price_product(category):
+    if category == "Овощи":
+        price_weights = [50, 50, 60, 60, 70, 70, 70]
+        price_tmp = price_weights - 0.01
+    if category == "Фрукты":
+        price_weights = [50, 50, 50, 60, 60, 70, 70]
+        price_tmp = price_weights - 0.01
+    if category == "Безалкогольные напитки":
+        price_weights = [70, 70, 90, 90, 100, 110]
+        price_tmp = price_weights - 0.01
+    if category == "Алкогольные напитки":
+        price_weights = [300, 300, 300, 500, 600, 800]
+        price_tmp = price_weights  - 0.01
+    if category == "Чипсы, орехи, сухарики":
+        price_weights = [80, 80, 80, 40, 40, 30]
+        price_tmp = price_weights - 0.01
+    if category == "Молочные продукты":
+        price_weights = [60, 60, 60, 70, 80, 90]
+        price_tmp = price_weights - 0.01 
+    if category == "Кисломолочные продукты":
+        price_weights = [90, 90, 90, 100, 110, 120]
+        price_tmp = price_weights - 0.01 
+    if category == "Яйцо":
+        price_weights = [70, 70, 70, 70, 90, 110]
+        price_tmp = price_weights  - 0.01 
+    if category == "Сыры":
+        price_weights = [110, 110, 120, 120, 120, 150]
+        price_tmp = price_weights  - 0.01 
+    if category == "Хлеб, выпечка":
+        price_weights = [30, 30, 30, 40, 40, 50]
+        price_tmp = price_weights  - 0.01 
+    if category == "Бакалея, соусы":
+        price_weights = [100, 100, 100, 120, 120, 150]
+        price_tmp = price_weights  - 0.01 
+    if category == "Консервы":
+        price_weights = [80, 80, 100, 120, 120, 250]
+        price_tmp = price_weights  - 0.01 
+    if category == "Птица, мясо":
+        price_weights = [300, 300, 350, 400, 450, 500]
+        price_tmp = price_weights  - 0.01 
+    if category == "Рыба, морепродукты":
+        price_weights = [300, 350, 400, 400, 450, 500]
+        price_tmp = price_weights  - 0.01 
+    if category == "Колбасы, сосиски":
+        price_weights = [150, 150, 200, 200, 350, 400]
+        price_tmp = price_weights  - 0.01 
+    if category == "Чай, кофе, какао":
+        price_weights = [350, 350, 400, 400, 550, 550]
+        price_tmp = price_weights  - 0.01         
+    return rnd.choice(price_tmp)
 
 # Функция генерации времени чека
 def gen_time():   
@@ -90,8 +142,11 @@ def gen_check():
         item = gen_product(category)
         amount_weights = [1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 5]  # 1 и 2 встречаются чаще
         amount = rnd.choice(amount_weights)
-        price = round(rnd.random()*300, 2)
-        discount = round(price * rnd.random()/10, 0)
+        price = round(gen_price_product(category), 2)
+        discount = 0
+        if rnd.random < 0.2 # 20% товаров со скидкой
+            discount_percent = rnd.choice([5,10,15,20,30])
+            discount = round(price * discount_percent / 100)
         check.loc[len(check)] = [doc_id, doc_dt, item, category, amount, price, discount]
     return check
 
