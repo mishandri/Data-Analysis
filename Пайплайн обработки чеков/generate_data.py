@@ -125,7 +125,7 @@ def gen_check():
     for i in range(rnd.randint(1, 10)): # в чеке будет от 1 до 10 позиций
         category = rnd.choice(categories)
         item = gen_product(category)
-        amount_weights = [1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 4, 5]  # 1 и 2 встречаются чаще
+        amount_weights = [1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 4]  # 1 и 2 встречаются чаще
         amount = rnd.choice(amount_weights)
         price = round(gen_price_product(category), 2)
         discount = 0
