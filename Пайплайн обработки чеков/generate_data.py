@@ -89,7 +89,7 @@ def gen_check():
         category = rnd.choice(categories)
         item = gen_product(category)
         amount = rnd.randint(1,5)
-        price = round(rnd.random()*1000, 2)
+        price = round(rnd.random()*300, 2)
         discount = round(price * rnd.random()/10, 0)
         check.loc[len(check)] = [doc_id, doc_dt, item, category, amount, price, discount]
     return check
