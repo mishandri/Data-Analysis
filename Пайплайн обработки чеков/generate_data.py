@@ -140,7 +140,8 @@ k = 4 # Количество касс в каждом магазине
 for shop in range(n):
     for cash in range(k):
         df = pd.DataFrame()
-        for customer in range(10, 10 + rnd.randint(41)): # от 10 до 50 покупателей в магазине за день
+        cust = rnd.randint(10, 50) # от 10 до 50 покупателей в магазине за день
+        for customer in range(0, cust):
             df = pd.concat([df, gen_check()], ignore_index=True)
         # Сразу добавим номер магазина и номер чека для последующего удобства
         df['shop_num'] = shop + 1
