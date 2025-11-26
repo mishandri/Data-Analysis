@@ -1,3 +1,10 @@
+# Выполнено
+
+1. Написан класс, `Extraction`, и определить в нем метод `from_csv`, который принимал бы путь к файлу и вытаскивал данные в виде списка объектов.
+2. Написан класс `Transformation`, который содержит два метода: `filter_by_date(sales_data, start_date, end_date)` и `filter_by_amount(sales_data, min_amount, max_amount)`.
+3. Написан класс `Analysis`, содержащий два метода: `calculate_total_sales` и `calculate_average_sales`.
+4. Написан класс `Loading` с методом `to_csv(sales_data, file_path)`, который запишет данные в `csv` файл.
+
 # Задача (решение на Python ООП)
 
 Собрать данные, сформировать продажи, задать базовую аналитику, выгрузить.
