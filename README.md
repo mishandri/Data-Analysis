@@ -1,5 +1,7 @@
 **[English] I have practical experience in analyzing real-world business data cases:**
 
+[**New York Taxi Trip Analysis**](https://vk.cc/d0P0tS)
+
 [**Product and Business Data Visualization in Analytical Dashboards: "Marketplace Sales Analysis"**](https://vk.cc/cRIhh8)
 
 [**Identifying Users with a Payment Chain Violating Payment System Policies**](https://vk.cc/cNpZqb)
@@ -44,6 +46,8 @@
 - [Building an analyst dashboard in Power BI](https://vk.cc/cNaRzt)
 
 **[Русский] Имею практический опыт в анализе данных кейсов из реального бизнеса, а именно:**
+
+[**Анализ поездок такси в Нью-Йорке**](https://vk.cc/d0P0tS)
 
 [**Визуализация данных продукта и бизнеса в аналитических дашбордах: "Анализ продаж маркетплейса"**](https://vk.cc/cRIhh8)
 
