@@ -1,3 +1,5 @@
+import os
+
 import psycopg2
 from jinja2 import Template
 from faker import Faker
@@ -8,13 +10,15 @@ from datetime import datetime
 today = datetime.today()
 fake = Faker('ru_RU')
 
-# Параметры подключения к базе данных
+# Параметры подключения к базе данных.
+# Значения приходят из переменных окружения, которые задаёт docker compose
+# из .env. В коде пароля нет, и при смене окружения ничего править не нужно.
 DB_CONFIG = {
-    'dbname': 'analytics_db',
-    'user': 'user',
-    'password': 'password',
-    'host': 'postgres-db',
-    'port': 5432
+    'dbname': os.environ.get('PGDATABASE', 'analytics_db'),
+    'user': os.environ.get('PGUSER', 'user'),
+    'password': os.environ['PGPASSWORD'],   # KeyError, если переменная не задана
+    'host': os.environ.get('PGHOST', 'postgres-db'),
+    'port': int(os.environ.get('PGPORT', '5432')),
 }
 
 # HTML-шаблон
@@ -213,11 +217,20 @@ def setup_database():
 
 # Вставка данных
 def update_database(data):
+    # Параметризованный запрос вместо f-строки: в наименованиях товаров
+    # есть апострофы, и любая из них рвала бы всю вставку
+    query = """
+        INSERT INTO ticket (
+            doc_id, doc_dt, item, category,
+            amount, price, discount, shop_num, cash_num
+        ) VALUES (
+            %(doc_id)s, %(doc_dt)s, %(item)s, %(category)s,
+            %(amount)s, %(price)s, %(discount)s, %(shop_num)s, %(cash_num)s
+        )
+    """
     conn = psycopg2.connect(**DB_CONFIG)
     cur = conn.cursor()
-    for i, row in data.iterrows():
-        query = f"INSERT INTO ticket VALUES ('{row['doc_id']}', CAST('{row['doc_dt']}' AS TIMESTAMP), '{row['item']}', '{row['category']}', '{row['amount']}', '{row['price']}', '{row['discount']}', '{row['shop_num']}', '{row['cash_num']}')"
-        cur.execute(query)
+    cur.executemany(query, data.to_dict(orient='records'))
     conn.commit()
     cur.close()
     conn.close()

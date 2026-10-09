@@ -1,93 +1,43 @@
-**[English] I have practical experience in analyzing real-world business data cases:**
+# Data analyst: портфолио
 
-[**New York Taxi Trip Analysis**](https://vk.cc/d0P0tS)
+Анализ данных на бизнес-кейсах. Полный цикл: от сырой выгрузки до дашборда или отчёта с выводом.
 
-[**Product and Business Data Visualization in Analytical Dashboards: "Marketplace Sales Analysis"**](https://vk.cc/cRIhh8)
+## Проекты
 
-[**Identifying Users with a Payment Chain Violating Payment System Policies**](https://vk.cc/cNpZqb)
+### Аналитика продукта и метрик
 
-[**Recommending Unlimited Applications Based on Traffic Analysis**](https://vk.cc/cNq061)
+- [Анализ активности пользователей](Анализ%20активности%20пользователей/readme.md). Когортный n-day retention, DAU, распределения активности по языкам, разбор шести продуктовых гипотез.
+- [Продуктовая аналитика на Python](Продуктовая%20аналитика%20на%20Python/readme.md). Четыре прикладные задачи на чистом Python: продуктовые метрики, разбор логов, рекламные кампании, пользовательские сессии.
+- [Дизайн A/B-теста](Дизайн%20AB-теста/readme.md). Семь продуктовых гипотез, приоритизация по RICE, статистическая проверка с размером эффекта и доверительными интервалами.
+- [Аналитика для корпоративных клиентов](Аналитика%20для%20корпоративных%20клиентов/readme.md). Прогресс и сложность задач студентов, разбор самых проблемных задач.
+- [Исследовательский и ABC анализ сервиса доставки](Исследовательский%20и%20ABC%20анализ%20сервиса%20доставки/readme.md). Тестовое задание на продуктового аналитика: маржа, доля промо, средний чек, ABC.
 
-[**Daily Forecasting of Successful Payment Time Series**](https://vk.cc/cNq1cE)
+### Ассортимент
 
-[**Exploratory and ABC Analysis of a Delivery Service**](https://vk.cc/cNaRBY)
+- [Ассортиментный анализ аптечной сети](Ассортиментный%20анализ%20аптечной%20сети/readme.md). Один набор данных, два инструмента: ABC по трём метрикам, XYZ, сочетаемость товаров в чеке, полная матрица «товар × аптека» в SQL и сверка в Excel.
+- [Три торговые сети, EDA и дашборд](Три%20торговые%20сети%20-%20EDA%20и%20дашборд/README.md). EDA чеков трёх федеральных сетей и дашборд Power BI на тех же данных: качество, корреляции, ABC, XYZ, RFM с выводами по сегментам.
 
-[**Identifying Payment Delinquencies on Credit Products**](https://vk.cc/cNaRCt)
+### Платежи, риски, прогноз
 
-**Pharmacy Chain Analytics:**
+- [Выявление просрочек платежей по кредитным продуктам](Выявление%20просрочек%20платежей%20по%20кредитным%20продуктам/readme.md). Консолидация трёх источников, расчёт просрочки по срокам и объёмам, когортный разрез, оценка объёма долга в деньгах.
+- [Нарушение условий платёжной системы](Нарушение%20условий%20платёжной%20системы%20%28ClickHouse%29/readme.md). Поиск превышений лимита за 24 часа в ClickHouse, скользящее окно по `RANGE`.
+- [Прогнозирование временного ряда платежей](Прогнозирование%20временного%20ряда/readme.md). SGD-регрессия прямо в ClickHouse, логарифм цели, one-hot по дням недели, разделение по времени, сравнение с двумя baseline.
+- [Рекомендации безлимитных тарифных опций](Рекомендации%20безлимитных%20приложений/readme.md). Upsell-модель на SQL: трафик, лимиты, прогноз месячного потребления.
 
-- Unit Economics: Building a model to assess product scalability
-- [ABC/XYZ Analysis: Pharmacy chain assortment, product categories](https://vk.cc/cNaRnp)
-- [Product Affinity Analysis (Market Basket Analysis)](https://vk.cc/cNaRok)
-- [Complete product sales table for all pharmacies in "product — pharmacy — units sold" format](https://vk.cc/cNaRok)
-- [Processing invoices exported from 1C](https://vk.cc/cNaRph)
-- [Receipt processing pipeline (automatic export to PostgreSQL)](https://vk.cc/cNaRpZ)
-- [Pharmacy chain KPI dashboard (Superset)](https://vk.cc/cNaRqM)
+### Данные и пайплайны
 
-**Educational Portal Analytics:**
+- [Анализ поездок такси в Нью-Йорке](Анализ%20поездок%20такси%20в%20Нью-Йорке/readme.md). ETL на 12,9 млн строк: чтение паркетов из облака через DuckDB, очистка, обогащение погодой и зонами, продуктовые выводы.
+- [Выгрузка данных из API сайта в PostgreSQL](Выгрузка%20данных%20из%20API%20сайта%20в%20PostgreSQL/readme.md). Боевой пайплайн: API, разбор грязного ответа, идемпотентная загрузка через upsert, логирование с ротацией, отчёт на Диск и письмо.
+- [Пайплайн обработки чеков](Пайплайн%20обработки%20чеков/readme.md). Эмуляция кассовой программы и ежедневная загрузка в PostgreSQL по расписанию.
+- [Обработка накладных 1С](Обработка%20накладных%201С/readme.md). Сверка выгрузок из СБИС и из аптек перед загрузкой в 1С, правила сопоставления счетов-фактур.
+- [ETL продаж, витрины для отчётности](ETL%20продаж%20-%20витрины%20для%20отчётности/readme.md). Плоская выгрузка разбирается на три витрины, деньги в `Decimal`, округление по бухгалтерским правилам.
 
-- Calculating metrics (MAU, WAU, DAU, n-day/rolling/full retention)
-- [User activity analysis by day of week, hour, and ad campaigns](https://vk.cc/cNaRt9)
-- [Correlation between user activity and academic performance](https://vk.cc/cNaRt9)
-- [Peak values for registrations and unique users](https://vk.cc/cNaRt9)
-- Sales and internal balance dynamics (transaction, charge, and accrual analysis)
-- [Extracting data from website API to PostgreSQL](https://vk.cc/cNaRFl)
-- Processing payment logs and student engagement data
-- [Visualization: Dynamic dashboards in Metabase (Filters Fields)](https://vk.cc/cNaRDk)
+### Визуализация и BI
 
-**IT Resume:**
+- [Дашборд KPI аптечной сети](Дашборд%20KPI%20аптечной%20сети/readme.md). Superset: обзор, детализация до чека, разрез по типам скидок.
+- [Динамические дашборды в Metabase](Динамические%20дашборды%20в%20Metabase/readme.md). Параметризованные запросы, один дашборд на любое число клиентов.
+- [Развёртывание Docker Compose](Развёртывание%20Docker%20Compose/readme.md). Nginx, Python и PostgreSQL в общей сети, секреты в `.env`, параметризованные запросы.
 
-- [Analytics for corporate clients](https://vk.cc/cNaRx4)
-- [Building ETL pipelines for sales data processing](https://vk.cc/cNaRxE)
+## Стек
 
-**Retail Chain Analysis:**
-
-- [Conducting exploratory data analysis](https://vk.cc/cNaRyy)
-- [Building an analyst dashboard in Power BI](https://vk.cc/cNaRzt)
-
-**[Русский] Имею практический опыт в анализе данных кейсов из реального бизнеса, а именно:**
-
-[**Анализ поездок такси в Нью-Йорке**](https://vk.cc/d0P0tS)
-
-[**Визуализация данных продукта и бизнеса в аналитических дашбордах: "Анализ продаж маркетплейса"**](https://vk.cc/cRIhh8)
-
-[**Определение пользователей с цепочкой платежей, нарушающей условия Платёжной Системы**](https://vk.cc/cNpZqb)
-
-[**Рекомендация безлимитных приложений, исходя из анализа трафика**](https://vk.cc/cNq061)
-
-[**Прогнозирование по дням временного ряда успешных платежей**](https://vk.cc/cNq1cE)
-
-[**Исследовательский и ABC анализ сервиса доставки**](https://vk.cc/cNaRBY)
-
-[**Выявление просрочек платежей по кредитным продуктам**](https://vk.cc/cNaRCt)
-
-**Аналитика аптечной сети:**
-
-- Юнит-экономика: построение модели для оценки масштабируемости продукта
-- [ABC/XYZ-анализ: ассортимент аптечной сети, товарные категории](https://vk.cc/cNaRnp)
-- [Cочетаемость товаров в чеке](https://vk.cc/cNaRok)
-- [Полная таблица продаж товаров во всех аптеках в формате «товар - аптека - продано штук»](https://vk.cc/cNaRok)
-- [Обработка накладных, выгруженных из 1С](https://vk.cc/cNaRph)
-- [Пайплайн обработки чеков (автоматическая выгрузка в PostgreSQL)](https://vk.cc/cNaRpZ)
-- [Дашборд KPI аптечной сети (Superset)](https://vk.cc/cNaRqM)
-
-**Аналитика для учебного портала:**
-
-- Расчёт метрик (MAU, WAU, DAU, n-day/rolling/full retention)
-- [Анализ активности пользователей по дням недели, по часам и рекламным кампаниям](https://vk.cc/cNaRt9)
-- [Корреляция между активностью и успеваемостью пользователей](https://vk.cc/cNaRt9)
-- [Пиковые значения регистраций, уникальных пользователей](https://vk.cc/cNaRt9)
-- Продажи и динамика внутреннего баланса (анализ транзакций, списаний, начислений)
-- [Выгрузка данных из API сайта в PostgreSQL](https://vk.cc/cNaRFl)
-- Обработка логов оплат, вовлечённости студентов
-- [Визуализация: динамические дашборды в Metabase (Filters Fields)](https://vk.cc/cNaRDk)
-
-**IT-Resume:**
-
-- [Аналитика для корпоративных клиентов](https://vk.cc/cNaRx4)
-- [Построение ETL для обработки данных о продажах](https://vk.cc/cNaRxE)
-
-**Анализ торговых сетей:**
-
-- [Проведение исследовательского анализа данных](https://vk.cc/cNaRyy)
-- [Построение дашборда для аналитика в Power BI](https://vk.cc/cNaRzt)
+Python (Pandas, NumPy, SciPy), SQL (PostgreSQL, ClickHouse), Excel, Power BI, Metabase, Superset, DuckDB, Docker, Git.

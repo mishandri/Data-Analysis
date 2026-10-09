@@ -162,29 +162,42 @@ db_connection = ConnectDB.get_instance()  # Соединяемся с БД
 # Таблица создана заранее. Файл "create_table_users.sql"
 try:
     cursor = db_connection.connection.cursor()  # Устанавливаем курсор
+    # Upsert, а не insert. Скрипт запускается по расписанию и может быть
+    # перезапущен в тот же день (сбой, ручной перезапуск, две копии на разных
+    # машинах). Без ON CONFLICT повторный запуск удваивает строки, и через
+    # месяц такой ошибки в счётчиках DAU никто не найдёт.
+    # Ключ совпадения — (user_id, created_at, attempt_type): одна и та же
+    # попытка может прийти из API сколько угодно раз, а разные попытки
+    # одного пользователя в разные моменты — это разные строки.
     query = """
     INSERT INTO users (
-        user_id, 
-        oauth_consumer_key, 
-        lis_result_sourcedid, 
-        lis_outcome_service_url, 
-        is_correct, 
-        attempt_type, 
+        user_id,
+        oauth_consumer_key,
+        lis_result_sourcedid,
+        lis_outcome_service_url,
+        is_correct,
+        attempt_type,
         created_at
-        ) 
+        )
         VALUES (
-        %(user_id)s, 
-        %(oauth_consumer_key)s, 
+        %(user_id)s,
+        %(oauth_consumer_key)s,
         %(lis_result_sourcedid)s,
         %(lis_outcome_service_url)s,
         %(is_correct)s,
         %(attempt_type)s,
         %(created_at)s
         )
+        ON CONFLICT (user_id, created_at, attempt_type)
+        DO UPDATE SET
+            oauth_consumer_key = EXCLUDED.oauth_consumer_key,
+            lis_result_sourcedid = EXCLUDED.lis_result_sourcedid,
+            lis_outcome_service_url = EXCLUDED.lis_outcome_service_url,
+            is_correct = EXCLUDED.is_correct
     """
     cursor.executemany(query, data)  # Передаём список словарей для вставки многих строк
     db_connection.commit()  # "Подтверждаем" вставку
-    logging.info(f'Данные успешно занесены в БД')
+    logging.info(f'Данные успешно занесены в БД, записей: {cursor.rowcount}')
 except Exception as e:
     logging.error(f"Неожиданная ошибка: {e}")
     if db_connection:

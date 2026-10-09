@@ -15,9 +15,10 @@ services:
     container_name: my_postgres
     image: postgres:17.7
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: analytics_db
+      # пароль не хранится в файле, compose подставляет значение из .env
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env}
+      POSTGRES_DB: ${POSTGRES_DB:-analytics_db}
     volumes:
       - pg_data:/var/lib/postgresql/data
     ports:
@@ -27,6 +28,14 @@ services:
   python-app:
     build: ./python_app
     container_name: my_python_app
+    environment:
+      # те же значения, что у postgres-db, но из своего окружения:
+      # пароль передаётся через переменную, а не зашит в код
+      PGHOST: postgres-db
+      PGPORT: 5432
+      PGDATABASE: ${POSTGRES_DB:-analytics_db}
+      PGUSER: ${POSTGRES_USER:-user}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env}
     volumes:
       - html_data:/app/html_output
     depends_on:
